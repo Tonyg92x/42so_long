@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/20 14:52:44 by aguay             #+#    #+#             */
-/*   Updated: 2021/11/23 12:38:17 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/21 08:57:38 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,9 @@ static char	*limit_check(int n)
 	return (NULL);
 }
 
-//	NE PAS OUBLIER DE FREE
-//	Alloue et retourne une chaine de 
-//	caractere reprèsentant l'integer 
-//	recu en argument.
+//	Take the integer entered and put the value
+//	in a string as multiple characters.
+//	Free alert
 char	*ft_itoa(int n)
 {
 	char	*retour;

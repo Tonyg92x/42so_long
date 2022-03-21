@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by mmondell          #+#    #+#              #
-#    Updated: 2022/03/09 08:03:43 by aguay            ###   ########.fr        #
+#    Updated: 2022/03/21 08:46:49 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,55 +31,55 @@ INCLUDE_DIR		= includes/
 LIBFT_DIR		= libft/
 
 ## ----- SOURCE FILES ----- ##
-SRCS_FILES		= ft_atoi.c			\
-			  ft_bzero.c			\
-			  ft_calloc.c			\
-			  ft_isalnum.c			\
-			  ft_isalpha.c			\
-			  ft_isascii.c			\
-			  ft_isdigit.c			\
-			  ft_isprint.c			\
-			  ft_itoa.c			\
-			  ft_lstadd_back.c		\
-			  ft_lstadd_front.c		\
-			  ft_lstclear.c			\
-			  ft_lstdelone.c		\
-			  ft_lstiter.c			\
-			  ft_lstlast.c			\
-			  ft_lstmap.c			\
-			  ft_lstnew.c			\
-			  ft_lstsize.c			\
-			  ft_memchr.c			\
-			  ft_memcmp.c			\
-			  ft_memcpy.c			\
-			  ft_memmove.c			\
-			  ft_memset.c			\
-			  ft_print_chars.c		\
-			  ft_print_dui.c		\
-			  ft_printf.c			\
-			  ft_putchar_fd.c		\
-			  ft_putendl_fd.c		\
-			  ft_puthex.c			\
-			  ft_putnbr_fd.c		\
-			  ft_putnbr_unsigned_fd.c	\
-			  ft_putstr_fd.c		\
-			  ft_split.c			\
-			  ft_strchr.c			\
-			  ft_strdup.c			\
-			  ft_striteri.c			\
-			  ft_strjoin.c			\
-			  ft_strlcat.c			\
-			  ft_strlcpy.c			\
-			  ft_strlen.c			\
-			  ft_strmapi.c			\
-			  ft_strncmp.c			\
-			  ft_strnstr.c			\
-			  ft_strrchr.c			\
-			  ft_strtrim.c			\
-			  ft_substr.c			\
-			  ft_tolower.c			\
-			  ft_toupper.c			\
-			  ft_utoa.c			\
+SRCS_FILES		= 					\
+			ft_atoi.c				\
+			ft_bzero.c				\
+			ft_calloc.c				\
+			ft_free2d.c				\
+			ft_gnl_utils.c			\
+			ft_gnl.c				\
+			ft_isalnum.c			\
+			ft_isalpha.c			\
+			ft_isascii.c			\
+			ft_isdigit.c			\
+			ft_isprint.c			\
+			ft_itoa.c				\
+			ft_itol.c				\
+			ft_memchr.c				\
+			ft_memcmp.c				\
+			ft_memcpy.c				\
+			ft_memmove.c			\
+			ft_memset.c				\
+			ft_print_chars.c		\
+			ft_print_dui.c			\
+			ft_printf.c				\
+			ft_push.c				\
+			ft_putchar_fd.c			\
+			ft_putendl_fd.c			\
+			ft_puthex.c				\
+			ft_putnbr_fd.c			\
+			ft_putnbr_unsigned_fd.c	\
+			ft_putstr_fd.c			\
+			ft_reverse_rotate.c		\
+			ft_rotate.c				\
+			ft_split.c				\
+			ft_strchr.c				\
+			ft_strdup.c				\
+			ft_striteri.c			\
+			ft_strjoin.c			\
+			ft_strlcat.c			\
+			ft_strlcpy.c			\
+			ft_strlen.c				\
+			ft_strmapi.c			\
+			ft_strncmp.c			\
+			ft_strnstr.c			\
+			ft_strrchr.c			\
+			ft_strtrim.c			\
+			ft_substr.c				\
+			ft_swap.c				\
+			ft_tolower.c			\
+			ft_toupper.c			\
+			ft_utoa.c				\
 
 ## ----- .C TO .O CONVERT ----- ##
 OBJ_FILES		= $(SRCS_FILES:.c=.o)
@@ -88,7 +88,7 @@ OBJ_FILES		= $(SRCS_FILES:.c=.o)
 # MAIN PROGRAMM #
 SRCS			= $(addprefix $(SRCS_DIR), $(SRCS_FILES))
 OBJS			= $(addprefix $(OBJ_DIR), $(OBJ_FILES))
-VPATH			= $(SRCS_DIR)
+VPATH			= $(SRCS_DIR) #$(B_SRCS_DIR)
 #--------------------------------------------------------------#
 
 ## ----- TOOLS AND COLORS ----- ##
@@ -106,6 +106,7 @@ NORMAL 			= \033[0m
 
 ## ----- ALL ACTION DEPENDENCIES AND RECIPE FOR MAIN PROGRAM ----- ##
 all: obj $(NAME)
+	clear
 	@echo "$(GREEN)Compilation Completed Successfully$(NORMAL)"
 
 $(OBJ_DIR)%.o:%.c
@@ -114,7 +115,6 @@ $(OBJ_DIR)%.o:%.c
 $(NAME): $(OBJS)
 	ar rc $(NAME) $(OBJS)
 	ranlib $(NAME)
-
 obj:
 	@clear
 	@echo "$(RED) Making TonyG C library $(AQUA)"
@@ -124,7 +124,7 @@ obj:
 clean:
 	$(RM) $(OBJS) $(B_OBJS)
 	@rm -rf $(OBJ_DIR)
-
+	clear
 fclean: clean
 	@rm -f $(NAME)
 

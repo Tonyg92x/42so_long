@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_itol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/30 08:50:27 by aguay             #+#    #+#             */
-/*   Updated: 2021/10/04 14:20:03 by aguay            ###   ########.fr       */
+/*   Created: 2021/09/20 14:52:44 by aguay             #+#    #+#             */
+/*   Updated: 2022/03/21 08:58:03 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Renvoie le dernier élément de la liste.
-t_list	*ft_lstlast(t_list *lst)
+//	Take the integer entered and convert it into a 
+//	long variable (It's pretty usefull to test integer limits).
+long int	ft_atol(char	*string)
 {
-	t_list	*retour;
+	long int	retour;
+	int			i;
+	int			negative;
 
-	if (!lst)
-		return (NULL);
-	retour = lst;
-	while (retour->next != 0x0)
-		retour = retour->next;
-	return (retour);
+	negative = 1;
+	i = 0;
+	retour = 0;
+	if (string[i] == '-')
+	{
+		negative = -1;
+		i++;
+	}
+	while (string[i] != '\0')
+		retour = retour * 10 + (string[i++] - 48);
+	return (retour * negative);
 }

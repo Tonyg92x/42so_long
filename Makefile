@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by mmondell          #+#    #+#              #
-#    Updated: 2022/03/16 12:58:07 by aguay            ###   ########.fr        #
+#    Updated: 2022/03/21 11:56:02 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME 			= so_long
 
 ## ----- CHOOSE COMPILER AND FLAGS ----- ##
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror
+CFLAGS			= -Wall -Wextra -Werror -g
 
 ## ----- PATH TO FOLDERS ----- ##
 SRCS_DIR		= srcs/
@@ -39,6 +39,7 @@ MINILIBX_DIR	= MLX42
 ## ----- SOURCE FILES ----- ##
 SRCS_FILES		=						\
 			main.c						\
+			map_validation.c			\
 
 ##SCRS_B			=						\
 
@@ -88,14 +89,12 @@ obj:
 
 ## ----- CLEAN COMMANDS ----- ##
 clean:
-	$(RM) $(OBJS)
+	$(RM) $(OBJ_DIR)
 	@make -C $(LIBFT_DIR) clean
 	clear
 
 fclean: clean
 	@rm -f $(NAME)
-##	@rm -f so_long_bonus
-	@make -C $(LIBFT_DIR) fclean
 	clear
 
 re: fclean all
