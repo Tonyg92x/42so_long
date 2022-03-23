@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:35:51 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/21 12:10:28 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/23 09:14:03 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,21 @@ static bool	main_loop(int fd)
 bool	validate_map(char	*file)
 {
 	int			fd;
+	char		*file_trim;
 
-	fd = open(file, O_RDONLY);
+	file_trim = ft_strtrim(file, " ");
+	fd = open(file_trim, O_RDONLY);
 	if (fd == -1)
+	{
+		free(file_trim);
 		return (quit(fd, NULL));
+	}
 	if (main_loop(fd) == false)
+	{
+		free(file_trim);
 		return (quit(fd, NULL));
+	}
 	close(fd);
+	free(file_trim);
 	return (true);
 }

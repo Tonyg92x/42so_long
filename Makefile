@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by mmondell          #+#    #+#              #
-#    Updated: 2022/03/21 11:56:02 by aguay            ###   ########.fr        #
+#    Updated: 2022/03/23 13:54:22 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,8 +33,6 @@ LIBFT_DIR		= libft
 LIBFT_OBJ		= libft/obj/
 
 LIBFT_INC		= libft/includes/
-
-MINILIBX_DIR	= MLX42
 
 ## ----- SOURCE FILES ----- ##
 SRCS_FILES		=						\
@@ -69,20 +67,16 @@ UNDERLINE 		= \033[4m
 NORMAL 			= \033[0m
 
 LIBFT			= make -C $(LIBFT_DIR)
-MINILIBX		= make -C $(MINILIBX_DIR)
 
 ## ----- ALL ACTION DEPENDENCIES AND RECIPE FOR MAIN PROGRAM ----- ##
 all: obj $(NAME)
-	clear
-	@echo "$(GREEN)Compilation Completed Successfully$(NORMAL)"
 
 $(OBJ_DIR)%.o:%.c
 	$(CC) $(CFLAGS) -I $(LIBFT_OBJ) -I $(INCLUDE_DIR) -I $(LIBFT_INC) -o $@ -c $<
 
 $(NAME): $(OBJS)
 	$(LIBFT)
-	$(MINILIBX)
-	$(CC) $(OBJS) libft/libft.a MLX42/libmlx42.a -I ./MLX42/include MLX42/libglfw.3.3.dylib -o $(NAME)
+	$(CC) $(OBJS) libft/libft.a -lmlx -framework OpenGL -framework AppKit -o $(NAME)
 
 obj:
 	@mkdir -p $(OBJ_DIR)
@@ -91,11 +85,9 @@ obj:
 clean:
 	$(RM) $(OBJ_DIR)
 	@make -C $(LIBFT_DIR) clean
-	clear
 
 fclean: clean
 	@rm -f $(NAME)
-	clear
 
 re: fclean all
 
