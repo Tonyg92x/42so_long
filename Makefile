@@ -34,6 +34,8 @@ LIBFT_OBJ		= libft/obj/
 
 LIBFT_INC		= libft/includes/
 
+UNAME			:= $(shell uname)
+
 ## ----- SOURCE FILES ----- ##
 SRCS_FILES		=						\
 			main.c						\
@@ -69,7 +71,10 @@ NORMAL 			= \033[0m
 LIBFT			= make -C $(LIBFT_DIR)
 
 ## ----- ALL ACTION DEPENDENCIES AND RECIPE FOR MAIN PROGRAM ----- ##
-all: obj $(NAME)
+all: obj
+	ifeq ($(shell uname), Linux)
+		$(NAME)
+	endif
 
 $(OBJ_DIR)%.o:%.c
 	$(CC) $(CFLAGS) -I $(LIBFT_OBJ) -I $(INCLUDE_DIR) -I $(LIBFT_INC) -o $@ -c $<
