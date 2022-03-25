@@ -24,6 +24,7 @@ char	*get_next_line(int fd)
 	int				len;
 	char			*ptr;
 	char			*retour;
+	char			*true_retour;
 
 	if (fd < 0 || fd > FOPEN_MAX)
 		return (NULL);
@@ -41,9 +42,6 @@ char	*get_next_line(int fd)
 	}
 	if (len == 0 && retour[0] == '\0')
 		return (ft_clean(retour));
-	if (ptr)
-		free(ptr);
-	ptr = ft_strdup(retour);
-	free(retour);
-	return (ptr);
+	true_retour = ft_strdup(retour);
+	return (true_retour);
 }
