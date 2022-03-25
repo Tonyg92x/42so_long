@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:35:51 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/23 14:39:35 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/24 12:15:54 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,32 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
+void	put_square(t_data *img, int color)
+{
+	int	x;
+	int	y;
+
+	x = 60;
+	y = 60;
+	while (x < 159)
+		my_mlx_pixel_put(img, x++, y, color);
+	while (y < 159)
+		my_mlx_pixel_put(img, x, y++, color);
+	while (x > 59)
+		my_mlx_pixel_put(img, x--, y, color);
+	while (y > 59)
+		my_mlx_pixel_put(img, x, y--, color);
+}
+
+int	ft_close(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
-	void	*mlx;
-	void	*mlx_win;
+	t_vars	vars;
 	t_data	img;
 
 	if (argc != 2)
@@ -35,12 +57,13 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error : map invalid\n", 2);
 		return (1);
 	}
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "Hello world!");
-	img.img = mlx_new_image(mlx, 1920, 1080);
+	vars.mlx = mlx_init();
+	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "So long");
+	img.img = mlx_new_image(vars.mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
-	my_mlx_pixel_put(&img, 60, 60, 0x00FF0000);
-	mlx_put_image_to_window(mlx, mlx_win, img.img, 0, 0);
-	mlx_loop(mlx);
+	put_square(&img, RED);
+	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
+	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
+	mlx_loop(vars.mlx);
 }

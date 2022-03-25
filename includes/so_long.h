@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:26 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/23 14:04:27 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/24 12:09:32 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,27 @@
 # define SO_LONG_H
 
 #include <mlx.h>
+# define RED 0xa80303
+# define BLUE 0x0512a1
+# define GREEN 0x12c912
+# define TEAL 0x0bc2d6
+# define PURPLE 0xa107b3
+# define YELLOW 0xe6ff05
+
+typedef struct	s_vars {
+	void	*mlx;
+	void	*win;
+}				t_vars;
+
+enum {
+	ON_KEYDOWN = 2,
+	ON_KEYUP = 3,
+	ON_MOUSEDOWN = 4,
+	ON_MOUSEUP = 5,
+	ON_MOUSEMOVE = 6,
+	ON_EXPOSE = 12,
+	ON_DESTROY = 17
+};
 
 typedef struct	s_data {
 	void	*img;
