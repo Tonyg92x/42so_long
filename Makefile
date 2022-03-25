@@ -34,7 +34,6 @@ LIBFT_OBJ		= libft/obj/
 
 LIBFT_INC		= libft/includes/
 
-UNAME			:= $(shell uname)
 
 ## ----- SOURCE FILES ----- ##
 SRCS_FILES		=						\
@@ -44,7 +43,13 @@ SRCS_FILES		=						\
 ##SCRS_B			=						\
 
 ## ----- .C TO .O CONVERT ----- ##
+ifeq ($(shell uname), Darwin)
 OBJ_FILES		= $(SRCS_FILES:.c=.o)
+endif
+
+ifeq ($(shell uname), Linux)
+OBJ_FILES		= $(SRCS_FILES:.c=.o)
+endif
 ##OBJ_FILES_B		= $(SCRS_B:.c=.o)
 
 ## ----- ADDPREFIX TO FILES ----- ##
@@ -71,17 +76,31 @@ NORMAL 			= \033[0m
 LIBFT			= make -C $(LIBFT_DIR)
 
 ## ----- ALL ACTION DEPENDENCIES AND RECIPE FOR MAIN PROGRAM ----- ##
-all: obj
-	ifeq ($(shell uname), Linux)
-		$(NAME)
-	endif
+
+ifeq ($(shell uname), Darwin)
+all: obj $(NAME)
+endif
+
+ifeq ($(shell uname), Linux)
+all: obj $(NAME)
+endif
 
 $(OBJ_DIR)%.o:%.c
-	$(CC) $(CFLAGS) -I $(LIBFT_OBJ) -I $(INCLUDE_DIR) -I $(LIBFT_INC) -o $@ -c $<
+	$(CC) $(CFLAGS) -I $(LIBFT_OBJ) -I $(INCLUDE_DIR) -I $(LIBFT_INC) -I/usr/include -Imlx_linux -O3 -c -o $@ -c $<
 
+ifeq ($(shell uname), Darwin)
 $(NAME): $(OBJS)
 	$(LIBFT)
 	$(CC) $(OBJS) libft/libft.a -lmlx -framework OpenGL -framework AppKit -o $(NAME)
+endif
+
+ifeq ($(shell uname), Linux)
+$(NAME): $(OBJS)
+	$(LIBFT)
+	$(shell cd mlx_linux)
+	$(shell ./configure)
+	$(CC) $(OBJS) libft/libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+endif
 
 obj:
 	@mkdir -p $(OBJ_DIR)
