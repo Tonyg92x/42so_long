@@ -34,6 +34,19 @@ static char	*next_str(char	*str, int fd)
 	return (temp);
 }
 
+static bool	is_dot_ber(char *file)
+{
+	int	i;
+
+	i = 0;
+	while (file[i])
+		i++;
+	if (file[i - 1] == 'r' && file[i - 2] == 'e'
+		&& file[i - 3] == 'b' && file[i - 4] == '.')
+		return (true);
+	return (false);
+}
+
 static bool	main_loop(int fd)
 {
 	int		i;
@@ -68,7 +81,10 @@ bool	validate_map(char	*file)
 	int			fd;
 	char		*file_trim;
 
+	fd = 0;
 	file_trim = ft_strtrim(file, " ");
+	if (is_dot_ber(file) == false)
+		return (quit(fd, file_trim));
 	fd = open(file_trim, O_RDONLY);
 	if (fd == -1)
 	{

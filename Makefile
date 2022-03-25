@@ -34,22 +34,29 @@ LIBFT_OBJ		= libft/obj/
 
 LIBFT_INC		= libft/includes/
 
-
 ## ----- SOURCE FILES ----- ##
+ifeq ($(shell uname), Darwin)
 SRCS_FILES		=						\
 			main.c						\
 			map_validation.c			\
+			keysum_mac.c				\
+			
+endif
+
+ifeq ($(shell uname), Linux)
+SRCS_FILES		=						\
+			main.c						\
+			map_validation.c			\
+			keysum_linux.c				\
+
+endif
 
 ##SCRS_B			=						\
 
 ## ----- .C TO .O CONVERT ----- ##
-ifeq ($(shell uname), Darwin)
-OBJ_FILES		= $(SRCS_FILES:.c=.o)
-endif
 
-ifeq ($(shell uname), Linux)
 OBJ_FILES		= $(SRCS_FILES:.c=.o)
-endif
+
 ##OBJ_FILES_B		= $(SCRS_B:.c=.o)
 
 ## ----- ADDPREFIX TO FILES ----- ##
@@ -97,8 +104,7 @@ endif
 ifeq ($(shell uname), Linux)
 $(NAME): $(OBJS)
 	$(LIBFT)
-	$(shell cd mlx_linux)
-	$(shell ./configure)
+	@echo "$(RED)Don't forget to go in mlx_linux and configure before compiling$(NORMAL)"
 	$(CC) $(OBJS) libft/libft.a -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 endif
 

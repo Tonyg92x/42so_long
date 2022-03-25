@@ -29,19 +29,22 @@ void	put_square(t_data *img, int color)
 
 	x = 60;
 	y = 60;
-	while (x < 159)
-		my_mlx_pixel_put(img, x++, y, color);
 	while (y < 159)
-		my_mlx_pixel_put(img, x, y++, color);
-	while (x > 59)
-		my_mlx_pixel_put(img, x--, y, color);
-	while (y > 59)
-		my_mlx_pixel_put(img, x, y--, color);
+	{
+		x = 60;
+		while (x < 159)
+			my_mlx_pixel_put(img, x++, y, color);
+		y++;
+	}
 }
 
-int	ft_close(t_vars *vars)
+int	ft_close(int keycode, t_vars *vars)
 {
-	mlx_destroy_window(vars->mlx, vars->win);
+	if (keycode == 65307)
+	{
+		mlx_destroy_window(vars->mlx, vars->win);
+		exit(0);
+	}
 	return (0);
 }
 
@@ -58,12 +61,13 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	vars.mlx = mlx_init();
+	initialise_keysum(&vars);
 	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "So long");
 	img.img = mlx_new_image(vars.mlx, 1920, 1080);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
 								&img.endian);
 	put_square(&img, RED);
 	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_hook(vars.win, 2, 1L<<0, ft_close, &vars);
+	mlx_hook(vars.win, ON_KEYDOWN, 1L<<0, ft_close, &vars);
 	mlx_loop(vars.mlx);
 }

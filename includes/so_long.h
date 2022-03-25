@@ -24,6 +24,11 @@
 typedef struct	s_vars {
 	void	*mlx;
 	void	*win;
+	int		escape;
+	int		w;
+	int		a;
+	int		s;
+	int		d;
 }				t_vars;
 
 enum {
@@ -45,5 +50,6 @@ typedef struct	s_data {
 }				t_data;
 
 bool	validate_map(char	*file);
+void    initialise_keysum(t_vars *vars);
 
 #endif
