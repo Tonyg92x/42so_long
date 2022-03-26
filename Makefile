@@ -40,6 +40,7 @@ SRCS_FILES		=						\
 			main.c						\
 			map_validation.c			\
 			keysum_mac.c				\
+			put_img.c					\
 			
 endif
 
@@ -48,6 +49,7 @@ SRCS_FILES		=						\
 			main.c						\
 			map_validation.c			\
 			keysum_linux.c				\
+			put_img.c					\
 
 endif
 

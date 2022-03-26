@@ -10,49 +10,33 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SO_LONG_H
-# define SO_LONG_H
+#include "libft.h"
+#include "so_long.h"
 
-#include <mlx.h>
-# define RED 0xa80303
-# define BLUE 0x0512a1
-# define GREEN 0x12c912
-# define TEAL 0x0bc2d6
-# define PURPLE 0xa107b3
-# define YELLOW 0xe6ff05
-
-typedef struct	s_vars 
+void    put_wall(t_vars vars, int pos_x, int pos_y)
 {
-	void	*mlx;
-	void	*win;
-	int		escape;
-	int		w;
-	int		a;
-	int		s;
-	int		d;
-}				t_vars;
+    int     width;
+    int     height;
+    void	*wall;
 
-enum {
-	ON_KEYDOWN = 2,
-	ON_KEYUP = 3,
-	ON_MOUSEDOWN = 4,
-	ON_MOUSEUP = 5,
-	ON_MOUSEMOVE = 6,
-	ON_EXPOSE = 12,
-	ON_DESTROY = 17
-};
+    wall = mlx_xpm_file_to_image(vars.mlx, "./sprite/Wall.xpm", &width, &height);
+	if (wall != NULL)
+    {
+        mlx_put_image_to_window(vars.mlx, vars.win, wall, pos_x, pos_y);
+        free(wall);
+    }
+}
 
-typedef struct	s_data {
-	void	*img;
-	char	*addr;
-	int		bits_per_pixel;
-	int		line_length;
-	int		endian;
-}				t_data;
+void    put_collectible(t_vars vars, int pos_x, int pos_y)
+{
+    int     width;
+    int     height;
+    void    *collectible;
 
-bool	validate_map(char	*file);
-void    initialise_keysum(t_vars *vars);
-void  	put_wall(t_vars vars, int pos_x, int pos_y);
-void    put_collectible(t_vars vars, int pos_x, int pos_y);
-
-#endif
+    collectible = mlx_xpm_file_to_image(vars.mlx, "./sprite/Collectible.xpm", &width, &height);
+	if (collectible != NULL)
+    {
+        mlx_put_image_to_window(vars.mlx, vars.win, collectible, pos_x, pos_y);
+        free(collectible);
+    }
+}
