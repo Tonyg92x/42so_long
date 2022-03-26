@@ -31,20 +31,7 @@ void    render_map(t_vars vars, t_map *map)
 {
     int x;
     int y;
-    y = 0;
-    y = 0;
-    ft_printf("Map width = %d\nMap height = %d\n", map->width, map->height);
-    while (y < map->height)
-    {
-        x = 0;
-        while (x < map->width)
-        {
-            ft_printf("%c", map->pos[y][x]);
-            x++;
-        }
-        ft_printf("\n");
-        y++;
-    }
+
     y = 0;
     while (y < map->height)
     {
@@ -60,9 +47,7 @@ void    render_map(t_vars vars, t_map *map)
             else if (map->pos[y][x] == 'P')
                 put_char(vars, x * 24, y * 24);
             else if (map->pos[y][x] == 'E')
-                put_exit_close(vars, x * 24, y * 24);
-            else if (map->pos[y][x] == 'W')
-                put_exit_close(vars, x * 24, y * 24);
+                put_exit_open(vars, x * 24, y * 24);
             x++;
         }
         y++;

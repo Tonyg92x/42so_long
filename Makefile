@@ -43,6 +43,7 @@ SRCS_FILES		=						\
 			put_img.c					\
 			initialise_map.c			\
 			render_map.c				\
+			movement.c					\
 			
 endif
 
@@ -54,6 +55,7 @@ SRCS_FILES		=						\
 			put_img.c					\
 			initialise_map.c			\
 			render_map.c				\
+			movement.c					\
 
 endif
 

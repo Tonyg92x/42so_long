@@ -23,8 +23,18 @@
 # define BLACK	0x000000
 # define BACKGROUD 0xE2F3FF
 
+typedef struct	s_map {
+	int		width;
+	int		height;
+	int		char_x;
+	int		char_y;
+	int		nb_collectible;
+	char	pos[100][100];
+}				t_map;
+
 typedef struct	s_vars 
 {
+	t_map	*map;
 	void	*mlx;
 	void	*win;
 	int		escape;
@@ -52,12 +62,6 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
-typedef struct	s_map {
-	int		width;
-	int		height;
-	char	pos[100][100];
-}				t_map;
-
 bool	validate_map(char	*file);
 void    initialise_keysum(t_vars *vars);
 t_map   *initialise_map(char *file);
@@ -68,5 +72,9 @@ void    put_exit_open(t_vars vars, int pos_x, int pos_y);
 void    put_exit_close(t_vars vars, int pos_x, int pos_y);
 void 	put_background(t_vars vars, int pos_x, int pos_y);
 void    render_map(t_vars vars, t_map *map);
+void    move_a(t_vars *vars);
+void    move_s(t_vars *vars);
+void    move_d(t_vars *vars);
+void    move_w(t_vars *vars);
 
 #endif

@@ -43,11 +43,19 @@ static t_map *init_map(int fd, t_map *map)
 	str = next_str(NULL, fd);
 	map->width = ft_strlen(str);
     y = 0;
+	map->nb_collectible = 0;
 	while (str != NULL)
 	{
 		x = 0;
 		while (x < map->width)
         {
+			if (str[x] == 'P')
+			{
+				map->char_x = x;
+				map->char_y = y;
+			}
+			if (str[x] == 'C')
+				map->nb_collectible++;
             map->pos[y][x] = str[x];
             x++;
         }

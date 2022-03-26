@@ -15,12 +15,20 @@
 
 int	ft_keypress(int keycode, t_vars *vars)
 {
-	ft_printf("Keycode %d has been pressed.\n", keycode);
-	if (keycode == 65307)
+	ft_printf("Keycode pressed = %d\n", keycode);
+	if (keycode == vars->escape)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
 		exit(0);
 	}
+	else if (keycode == vars->a)
+		move_a(vars);
+	else if (keycode == vars->s)
+		move_s(vars);
+	else if (keycode == vars->d)
+		move_d(vars);
+	else if (keycode == vars->w)
+		move_w(vars);
 	return (0);
 }
 
@@ -45,16 +53,16 @@ int	main(int argc, char **argv)
 		return (1);
 	}
 	map = initialise_map(argv[1]);
+	vars.map = map;
 	vars.mlx = mlx_init();
 	initialise_keysum(&vars);
+	ft_printf("%d\n", vars.escape);
 	vars.win = mlx_new_window(vars.mlx, map->width * 24, map->height * 24, "So long");
 	background.img = mlx_new_image(vars.mlx, 600, 600);
 	background.addr = mlx_get_data_addr(background.img, &background.bits_per_pixel, &background.line_length,
 								&background.endian);
 	mlx_put_image_to_window(vars.mlx, vars.win, background.img, 0, 0);
-	put_background(vars, 0, 0);
-	put_background(vars, 0, 24);
-	put_background(vars, 26, 0);
+	render_map(vars, map);
 	mlx_hook(vars.win, ON_KEYDOWN, 1L<<0, ft_keypress, &vars);
 	mlx_hook(vars.win, ON_DESTROY, 1L<<0, ft_exit, &vars);
 	mlx_loop(vars.mlx);
