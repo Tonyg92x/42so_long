@@ -22,24 +22,9 @@ void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-void	put_square(t_data *img, int color)
+int	ft_keypress(int keycode, t_vars *vars)
 {
-	int	x;
-	int	y;
-
-	x = 60;
-	y = 60;
-	while (y < 159)
-	{
-		x = 60;
-		while (x < 159)
-			my_mlx_pixel_put(img, x++, y, color);
-		y++;
-	}
-}
-
-int	ft_close(int keycode, t_vars *vars)
-{
+	ft_printf("Keycode %d has been pressed.\n", keycode);
 	if (keycode == 65307)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
@@ -48,10 +33,18 @@ int	ft_close(int keycode, t_vars *vars)
 	return (0);
 }
 
+int	ft_exit(t_vars *vars)
+{
+	mlx_destroy_window(vars->mlx, vars->win);
+	exit(0);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_vars	vars;
-	t_data	img;
+	t_data	background;
+	void	*wall;
 
 	if (argc != 2)
 		return (0);
@@ -62,12 +55,13 @@ int	main(int argc, char **argv)
 	}
 	vars.mlx = mlx_init();
 	initialise_keysum(&vars);
-	vars.win = mlx_new_window(vars.mlx, 1920, 1080, "So long");
-	img.img = mlx_new_image(vars.mlx, 1920, 1080);
-	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length,
-								&img.endian);
-	put_square(&img, RED);
-	mlx_put_image_to_window(vars.mlx, vars.win, img.img, 0, 0);
-	mlx_hook(vars.win, ON_KEYDOWN, 1L<<0, ft_close, &vars);
+	vars.win = mlx_new_window(vars.mlx, 600, 600, "So long");
+	background.img = mlx_new_image(vars.mlx, 600, 600);
+	background.addr = mlx_get_data_addr(background.img, &background.bits_per_pixel, &background.line_length,
+								&background.endian);
+	mlx_put_image_to_window(vars.mlx, vars.win, background.img, 0, 0);
+	
+	mlx_hook(vars.win, ON_KEYDOWN, 1L<<0, ft_keypress, &vars);
+	mlx_hook(vars.win, ON_DESTROY, 1L<<0, ft_exit, &vars);
 	mlx_loop(vars.mlx);
 }
