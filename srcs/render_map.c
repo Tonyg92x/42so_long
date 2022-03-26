@@ -13,16 +13,21 @@
 #include "libft.h"
 #include "so_long.h"
 
-//	offset the data to get the pixel at the right place in the window
-static void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
+static void put_background(t_vars vars, int pos_x, int pos_y)
 {
-	char *dst;
+    int     width;
+    int     height;
+    void	*background;
 
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
+    background = mlx_xpm_file_to_image(vars.mlx, "./sprite/Background.xpm", &width, &height);
+	if (background != NULL)
+    {
+        mlx_put_image_to_window(vars.mlx, vars.win, background, pos_x, pos_y);
+        free(background);
+    }
 }
 
-void    render_map(t_vars vars, t_map *map, t_data *data)
+void    render_map(t_vars vars, t_map *map)
 {
     int x;
     int y;
@@ -49,7 +54,7 @@ void    render_map(t_vars vars, t_map *map, t_data *data)
             if (map->pos[y][x] == '1')
                 put_wall(vars, x * 24, y * 24);
             else if (map->pos[y][x] == '0')
-                ft_clear_case(data, x * 24, y * 24);
+                put_background(vars, x * 24, y * 24);
             else if (map->pos[y][x] == 'C')
                 put_collectible(vars, x * 24, y * 24);
             else if (map->pos[y][x] == 'P')

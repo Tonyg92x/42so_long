@@ -66,6 +66,6 @@ void    put_char(t_vars vars, int pos_x, int pos_y);
 t_map   *initialise_map(char *file);
 void    put_exit_open(t_vars vars, int pos_x, int pos_y);
 void    put_exit_close(t_vars vars, int pos_x, int pos_y);
-void    render_map(t_vars vars, t_map *map, t_data *data);
+void    render_map(t_vars vars, t_map *map);
 
 #endif
