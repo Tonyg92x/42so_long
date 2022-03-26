@@ -13,7 +13,7 @@
 #include "libft.h"
 #include "so_long.h"
 
-static void put_background(t_vars vars, int pos_x, int pos_y)
+void put_background(t_vars vars, int pos_x, int pos_y)
 {
     int     width;
     int     height;

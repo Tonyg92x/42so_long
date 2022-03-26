@@ -60,12 +60,13 @@ typedef struct	s_map {
 
 bool	validate_map(char	*file);
 void    initialise_keysum(t_vars *vars);
+t_map   *initialise_map(char *file);
 void  	put_wall(t_vars vars, int pos_x, int pos_y);
 void    put_collectible(t_vars vars, int pos_x, int pos_y);
 void    put_char(t_vars vars, int pos_x, int pos_y);
-t_map   *initialise_map(char *file);
 void    put_exit_open(t_vars vars, int pos_x, int pos_y);
 void    put_exit_close(t_vars vars, int pos_x, int pos_y);
+void 	put_background(t_vars vars, int pos_x, int pos_y);
 void    render_map(t_vars vars, t_map *map);
 
 #endif

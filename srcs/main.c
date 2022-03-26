@@ -52,7 +52,9 @@ int	main(int argc, char **argv)
 	background.addr = mlx_get_data_addr(background.img, &background.bits_per_pixel, &background.line_length,
 								&background.endian);
 	mlx_put_image_to_window(vars.mlx, vars.win, background.img, 0, 0);
-	render_map(vars, map, &background);
+	put_background(vars, 0, 0);
+	put_background(vars, 0, 24);
+	put_background(vars, 26, 0);
 	mlx_hook(vars.win, ON_KEYDOWN, 1L<<0, ft_keypress, &vars);
 	mlx_hook(vars.win, ON_DESTROY, 1L<<0, ft_exit, &vars);
 	mlx_loop(vars.mlx);
