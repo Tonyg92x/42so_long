@@ -40,3 +40,31 @@ void    put_collectible(t_vars vars, int pos_x, int pos_y)
         free(collectible);
     }
 }
+
+void    put_char(t_vars vars, int pos_x, int pos_y)
+{
+    int     width;
+    int     height;
+    void    *character;
+
+    character = mlx_xpm_file_to_image(vars.mlx, "./sprite/Character.xpm", &width, &height);
+	if (character != NULL)
+    {
+        mlx_put_image_to_window(vars.mlx, vars.win, character, pos_x, pos_y);
+        free(character);
+    }
+}
+
+void    put_exit(t_vars vars, int pos_x, int pos_y)
+{
+    int     width;
+    int     height;
+    void    *exit;
+
+    exit = mlx_xpm_file_to_image(vars.mlx, "./sprite/ExitOpen.xpm", &width, &height);
+	if (exit != NULL)
+    {
+        mlx_put_image_to_window(vars.mlx, vars.win, exit, pos_x, pos_y);
+        free(exit);
+    }
+}

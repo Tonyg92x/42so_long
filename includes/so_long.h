@@ -54,5 +54,7 @@ bool	validate_map(char	*file);
 void    initialise_keysum(t_vars *vars);
 void  	put_wall(t_vars vars, int pos_x, int pos_y);
 void    put_collectible(t_vars vars, int pos_x, int pos_y);
+void    put_char(t_vars vars, int pos_x, int pos_y);
+void    put_exit(t_vars vars, int pos_x, int pos_y);
 
 #endif
