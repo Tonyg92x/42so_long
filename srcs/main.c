@@ -13,15 +13,6 @@
 #include "libft.h"
 #include "so_long.h"
 
-//	offset the data to get the pixel at the right place in the window
-void	my_mlx_pixel_put(t_data *data, int x, int y, int color)
-{
-	char *dst;
-
-	dst = data->addr + (y * data->line_length + x * (data->bits_per_pixel / 8));
-	*(unsigned int*)dst = color;
-}
-
 int	ft_keypress(int keycode, t_vars *vars)
 {
 	ft_printf("Keycode %d has been pressed.\n", keycode);
@@ -44,6 +35,7 @@ int	main(int argc, char **argv)
 {
 	t_vars	vars;
 	t_data	background;
+	t_map	*map;
 
 	if (argc != 2)
 		return (0);
@@ -52,19 +44,17 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error : map invalid\n", 2);
 		return (1);
 	}
+	map = initialise_map(argv[1]);
 	vars.mlx = mlx_init();
 	initialise_keysum(&vars);
-	vars.win = mlx_new_window(vars.mlx, 600, 600, "So long");
+	vars.win = mlx_new_window(vars.mlx, map->width * 24, map->height * 24, "So long");
 	background.img = mlx_new_image(vars.mlx, 600, 600);
 	background.addr = mlx_get_data_addr(background.img, &background.bits_per_pixel, &background.line_length,
 								&background.endian);
 	mlx_put_image_to_window(vars.mlx, vars.win, background.img, 0, 0);
-	put_exit(vars, 0, 0);
-	put_exit(vars, 24, 0);
-	put_exit(vars, 48, 0);
-	put_exit(vars, 0, 23);
-	put_exit(vars, 24, 23);
+	render_map(vars, map, &background);
 	mlx_hook(vars.win, ON_KEYDOWN, 1L<<0, ft_keypress, &vars);
 	mlx_hook(vars.win, ON_DESTROY, 1L<<0, ft_exit, &vars);
 	mlx_loop(vars.mlx);
+	free(map);
 }

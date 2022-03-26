@@ -20,6 +20,8 @@
 # define TEAL 0x0bc2d6
 # define PURPLE 0xa107b3
 # define YELLOW 0xe6ff05
+# define BLACK	0x000000
+# define BACKGROUD 0xE2F3FF
 
 typedef struct	s_vars 
 {
@@ -50,11 +52,20 @@ typedef struct	s_data {
 	int		endian;
 }				t_data;
 
+typedef struct	s_map {
+	int		width;
+	int		height;
+	char	pos[100][100];
+}				t_map;
+
 bool	validate_map(char	*file);
 void    initialise_keysum(t_vars *vars);
 void  	put_wall(t_vars vars, int pos_x, int pos_y);
 void    put_collectible(t_vars vars, int pos_x, int pos_y);
 void    put_char(t_vars vars, int pos_x, int pos_y);
-void    put_exit(t_vars vars, int pos_x, int pos_y);
+t_map   *initialise_map(char *file);
+void    put_exit_open(t_vars vars, int pos_x, int pos_y);
+void    put_exit_close(t_vars vars, int pos_x, int pos_y);
+void    render_map(t_vars vars, t_map *map, t_data *data);
 
 #endif

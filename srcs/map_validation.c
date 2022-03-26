@@ -55,6 +55,8 @@ static bool	main_loop(int fd)
 
 	str = next_str(NULL, fd);
 	size = ft_strlen(str);
+	if (size > 100)
+		return (quit(fd, str));
 	while (str != NULL)
 	{
 		if (size != ft_strlen(str))
@@ -87,15 +89,9 @@ bool	validate_map(char	*file)
 		return (quit(fd, file_trim));
 	fd = open(file_trim, O_RDONLY);
 	if (fd == -1)
-	{
-		free(file_trim);
-		return (quit(fd, NULL));
-	}
+		return (quit(fd, file_trim));
 	if (main_loop(fd) == false)
-	{
-		free(file_trim);
-		return (quit(fd, NULL));
-	}
+		return (quit(fd, file_trim));
 	close(fd);
 	free(file_trim);
 	return (true);
