@@ -50,10 +50,20 @@ static bool	is_dot_ber(char *file)
 static bool	main_loop(int fd)
 {
 	int		i;
+	int		c;
+	int		e;
 	char	*str;
 	size_t	size;
 
+	c = 0;
+	e = 0;
 	str = next_str(NULL, fd);
+	while (str[c])
+	{
+		if (str[c++] != '1')
+			return (quit(fd, str));
+	}
+	c = 0;
 	size = ft_strlen(str);
 	if (size > 100)
 		return (quit(fd, str));
@@ -61,12 +71,28 @@ static bool	main_loop(int fd)
 	{
 		if (size != ft_strlen(str))
 			return (quit(fd, str));
+		if (str[0] != '1' || str[size - 1] != '1')
+			return (quit(fd, str));
 		i = 0;
 		while (str[i])
 		{
 			if (str[i] == '0' || str[i] == '1' || str[i] == 'C'
 				|| str[i] == 'E' || str[i] == 'P')
+			{
+				if (str[i] == 'E')
+				{
+					e++;
+					if (e > 1)
+						return (quit(fd, str));
+				}
+				else if (str[i] == 'P')
+				{
+					c++;
+					if (c > 1)
+						return (quit(fd, str));
+				}
 				i++;
+			}
 			else
 				return (quit(fd, str));
 		}

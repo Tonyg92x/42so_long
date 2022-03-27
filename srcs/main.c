@@ -15,7 +15,6 @@
 
 int	ft_keypress(int keycode, t_vars *vars)
 {
-	ft_printf("Keycode pressed = %d\n", keycode);
 	if (keycode == vars->escape)
 	{
 		mlx_destroy_window(vars->mlx, vars->win);
@@ -56,7 +55,6 @@ int	main(int argc, char **argv)
 	vars.map = map;
 	vars.mlx = mlx_init();
 	initialise_keysum(&vars);
-	ft_printf("%d\n", vars.escape);
 	vars.win = mlx_new_window(vars.mlx, map->width * 24, map->height * 24, "So long");
 	background.img = mlx_new_image(vars.mlx, 600, 600);
 	background.addr = mlx_get_data_addr(background.img, &background.bits_per_pixel, &background.line_length,
