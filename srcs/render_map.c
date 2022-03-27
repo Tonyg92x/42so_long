@@ -47,7 +47,7 @@ void    render_map(t_vars vars, t_map *map)
             else if (map->pos[y][x] == 'P')
                 put_char(vars, x * 24, y * 24);
             else if (map->pos[y][x] == 'E')
-                put_exit_open(vars, x * 24, y * 24);
+                put_exit_close(vars, x * 24, y * 24);
             x++;
         }
         y++;

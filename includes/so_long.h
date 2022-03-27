@@ -28,6 +28,8 @@ typedef struct	s_map {
 	int		height;
 	int		char_x;
 	int		char_y;
+	int		exit_x;
+	int		exit_y;
 	int		nb_collectible;
 	char	pos[100][100];
 }				t_map;

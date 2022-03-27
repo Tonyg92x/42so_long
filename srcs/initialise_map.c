@@ -54,6 +54,11 @@ static t_map *init_map(int fd, t_map *map)
 				map->char_x = x;
 				map->char_y = y;
 			}
+			if (str[x] == 'E')
+			{
+				map->exit_x = x;
+				map->exit_y = y;
+			}
 			if (str[x] == 'C')
 				map->nb_collectible++;
             map->pos[y][x] = str[x];
