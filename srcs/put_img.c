@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   put_img.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:26 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/24 12:09:32 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/28 15:40:06 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void	put_wall(t_vars vars, int pos_x, int pos_y)
 	int		height;
 	void	*wall;
 
-	wall = mlx_xpm_file_to_image(vars.mlx, "./sprite/Wall.xpm", &width, &height);
+	wall = mlx_xpm_file_to_image(vars.mlx,
+			"./sprite/Wall.xpm", &width, &height);
 	if (wall != NULL)
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win, wall, pos_x, pos_y);
-		free(wall);
+		mlx_destroy_image(vars.mlx, wall);
 	}
 }
 
@@ -33,11 +34,12 @@ void	put_collectible(t_vars vars, int pos_x, int pos_y)
 	int		height;
 	void	*collectible;
 
-	collectible = mlx_xpm_file_to_image(vars.mlx, "./sprite/Collectible.xpm", &width, &height);
+	collectible = mlx_xpm_file_to_image(vars.mlx,
+			"./sprite/Collectible.xpm", &width, &height);
 	if (collectible != NULL)
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win, collectible, pos_x, pos_y);
-		free(collectible);
+		mlx_destroy_image(vars.mlx, collectible);
 	}
 }
 
@@ -46,12 +48,13 @@ void	put_char(t_vars vars, int pos_x, int pos_y)
 	int		width;
 	int		height;
 	void	*character;
-	
-	character = mlx_xpm_file_to_image(vars.mlx, "./sprite/Character.xpm", &width, &height);
+
+	character = mlx_xpm_file_to_image(vars.mlx,
+			"./sprite/Character.xpm", &width, &height);
 	if (character != NULL)
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win, character, pos_x, pos_y);
-		free(character);
+		mlx_destroy_image(vars.mlx, character);
 	}
 }
 
@@ -61,11 +64,12 @@ void	put_exit_close(t_vars vars, int pos_x, int pos_y)
 	int		height;
 	void	*exit;
 
-	exit = mlx_xpm_file_to_image(vars.mlx, "./sprite/ExitClosed.xpm", &width, &height);
+	exit = mlx_xpm_file_to_image(vars.mlx,
+			"./sprite/ExitClosed.xpm", &width, &height);
 	if (exit != NULL)
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win, exit, pos_x, pos_y);
-		free(exit);
+		mlx_destroy_image(vars.mlx, exit);
 	}
 }
 
@@ -74,11 +78,13 @@ void	put_exit_open(t_vars vars, int pos_x, int pos_y)
 	int		width;
 	int		height;
 	void	*exit;
-	
-	exit = mlx_xpm_file_to_image(vars.mlx, "./sprite/ExitOpen.xpm", &width, &height);
+
+	exit = mlx_xpm_file_to_image(vars.mlx,
+			"./sprite/ExitOpen.xpm", &width, &height);
 	if (exit != NULL)
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win, exit, pos_x, pos_y);
-		free(exit);
+		mlx_destroy_image(vars.map, exit);
 	}
+		
 }

@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:26 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/24 12:09:32 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/28 13:37:14 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct	s_data {
 
 bool	validate_map(char	*file);
 void	initialise_keysum(t_vars *vars);
-t_map	*initialise_map(char *file);
+void	initialise_map(char *file, t_map *map);
 void	put_wall(t_vars vars, int pos_x, int pos_y);
 void	put_collectible(t_vars vars, int pos_x, int pos_y);
 void	put_char(t_vars vars, int pos_x, int pos_y);

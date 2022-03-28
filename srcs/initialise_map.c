@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
+/*   initialise_map.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:26 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/24 12:09:32 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/28 15:15:08 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,12 @@ char	*next_str(char	*str, int fd)
 	return (temp);
 }
 
-static t_map *init_map(int fd, t_map *map)
+static void	init_map(int fd, t_map *map)
 {
 	int		x;
 	int		y;
 	char	*str;
 
-	map = malloc(sizeof(t_map));
 	str = next_str(NULL, fd);
 	map->width = ft_strlen(str);
 	y = 0;
@@ -68,23 +67,18 @@ static t_map *init_map(int fd, t_map *map)
 		str = next_str(str, fd);
 		y++;
 		if (y > 100)
-		{
-			free(map);
-			return (NULL);
-		}
+			return ;
 		if (str == NULL)
-			break;
+			break ;
 	}
 	map->height = y;
 	if (str != NULL)
 		free(str);
 	close(fd);
-	return (map);
 }
 
-t_map	*initialise_map(char *file)
+void	initialise_map(char *file, t_map *map)
 {
-	t_map	*map;
 	int		fd;
 	char	*file_trim;
 
@@ -95,10 +89,9 @@ t_map	*initialise_map(char *file)
 	{
 		quit(fd, file_trim);
 		ft_putstr_fd("Error : Can't open the file.", 2);
-		return (NULL);
+		return ;
 	}
-	map = init_map(fd, map);
+	init_map(fd, map);
 	map->nb_movement = 0;
 	quit(fd, file_trim);
-	return (map);
 }

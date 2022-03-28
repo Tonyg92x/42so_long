@@ -1,29 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keycap_linux.c                                     :+:      :+:    :+:   */
+/*   render_map.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:35:51 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/24 12:15:54 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/28 15:47:03 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "so_long.h"
 
-void put_background(t_vars vars, int pos_x, int pos_y)
+void	put_background(t_vars vars, int pos_x, int pos_y)
 {
 	int		width;
 	int		height;
 	void	*background;
 
-	background = mlx_xpm_file_to_image(vars.mlx, "./sprite/Background.xpm", &width, &height);
+	background = mlx_xpm_file_to_image(vars.mlx,
+			"./sprite/Background.xpm", &width, &height);
 	if (background != NULL)
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win, background, pos_x, pos_y);
-		free(background);
+		mlx_destroy_image(vars.mlx, background);
 	}
 }
 

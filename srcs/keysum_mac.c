@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keycap_mac.c                                       :+:      :+:    :+:   */
+/*   keysum_mac.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:35:51 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/24 12:15:54 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/28 15:15:38 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 #include "so_long.h"
 
 //  Initialise the keysum for debian
-void    initialise_keysum(t_vars *vars)
+void	initialise_keysum(t_vars *vars)
 {
-	vars->escape = 65307;
-	vars->a = 97;
-	vars->s = 115;
-	vars->d = 100;
-	vars->w = 119;
+	vars->escape = 53;
+	vars->a = 0;
+	vars->s = 1;
+	vars->d = 2;
+	vars->w = 13;
 }

@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 09:25:02 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/21 08:58:56 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/28 14:45:56 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,5 +43,6 @@ char	*get_next_line(int fd)
 	if (len == 0 && retour[0] == '\0')
 		return (ft_clean(retour));
 	true_retour = ft_strdup(retour);
+	free(retour);
 	return (true_retour);
 }

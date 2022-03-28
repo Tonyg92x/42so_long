@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   keycap_linux.c                                     :+:      :+:    :+:   */
+/*   keysum_linux.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:35:51 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/24 12:15:54 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/28 15:15:24 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "so_long.h"
 
 //  Initialise the keysum for debian
-void    initialise_keysum(t_vars *vars)
+void	initialise_keysum(t_vars *vars)
 {
 	vars->escape = 65307;
 	vars->a = 97;

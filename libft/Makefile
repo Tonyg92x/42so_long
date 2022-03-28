@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by mmondell          #+#    #+#              #
-#    Updated: 2022/03/21 08:46:49 by aguay            ###   ########.fr        #
+#    Updated: 2022/03/28 11:15:11 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -111,7 +111,7 @@ $(OBJ_DIR)%.o:%.c
 	$(CC) $(CFLAGS) -I $(INCLUDE_DIR) -o $@ -c $<
 
 $(NAME): $(OBJS)
-	ar rc $(NAME) $(OBJS)
+	libtool -static -o $(NAME) $(OBJS)
 	ranlib $(NAME)
 obj:
 	@echo "$(RED) Making TonyG C library $(AQUA)"
