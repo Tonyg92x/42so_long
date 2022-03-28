@@ -44,7 +44,8 @@ SRCS_FILES		=						\
 			initialise_map.c			\
 			render_map.c				\
 			movement.c					\
-			
+			movement_utils.c			\
+
 endif
 
 ifeq ($(shell uname), Linux)
@@ -56,6 +57,7 @@ SRCS_FILES		=						\
 			initialise_map.c			\
 			render_map.c				\
 			movement.c					\
+			movement_utils.c			\
 
 endif
 

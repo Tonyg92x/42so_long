@@ -13,27 +13,6 @@
 #include "libft.h"
 #include "so_long.h"
 
-static bool	quit(int fd, char *str)
-{
-	if (fd != 0)
-		close(fd);
-	if (str != NULL)
-		free(str);
-	return (false);
-}
-
-static char	*next_str(char	*str, int fd)
-{
-	char	*temp;
-
-	if (str != NULL)
-		free(str);
-	str = get_next_line(fd);
-	temp = ft_strtrim(str, "\n");
-	free(str);
-	return (temp);
-}
-
 static bool	is_dot_ber(char *file)
 {
 	int	i;
@@ -47,26 +26,30 @@ static bool	is_dot_ber(char *file)
 	return (false);
 }
 
-static bool	main_loop(int fd)
+static bool	main_loop3(char *str, int *i, int *e, int *c)
 {
-	int		i;
-	int		c;
-	int		e;
-	char	*str;
-	size_t	size;
-
-	c = 0;
-	e = 0;
-	str = next_str(NULL, fd);
-	while (str[c])
+	if (str[(*i)] == '0' || str[(*i)] == '1' || str[(*i)] == 'C'
+		|| str[(*i)] == 'E' || str[(*i)] == 'P')
 	{
-		if (str[c++] != '1')
-			return (quit(fd, str));
+		if (str[(*i)] == 'E')
+			(*e)++;
+		else if (str[(*i)] == 'P')
+			(*c)++;
+		(*i)++;
+		return (true);
 	}
+	else
+		return (false);
+}
+
+static bool	main_loop2(int fd, size_t size, char *str)
+{
+	int	i;
+	int	e;
+	int	c;
+
+	e = 0;
 	c = 0;
-	size = ft_strlen(str);
-	if (size > 100)
-		return (quit(fd, str));
 	while (str != NULL)
 	{
 		if (size != ft_strlen(str))
@@ -76,31 +59,34 @@ static bool	main_loop(int fd)
 		i = 0;
 		while (str[i])
 		{
-			if (str[i] == '0' || str[i] == '1' || str[i] == 'C'
-				|| str[i] == 'E' || str[i] == 'P')
-			{
-				if (str[i] == 'E')
-				{
-					e++;
-					if (e > 1)
-						return (quit(fd, str));
-				}
-				else if (str[i] == 'P')
-				{
-					c++;
-					if (c > 1)
-						return (quit(fd, str));
-				}
-				i++;
-			}
-			else
+			if (main_loop3(str, &i, &e, &c) == false)
 				return (quit(fd, str));
 		}
 		str = next_str(str, fd);
 	}
-	if (str != NULL)
-		free(str);
-	close(fd);
+	if (e != 1 || c != 1)
+		return (quit(fd, str));
+	return (true);
+}
+
+static bool	main_loop(int fd)
+{
+	char	*str;
+	size_t	size;
+	int		c;
+
+	c = 0;
+	str = next_str(NULL, fd);
+	while (str[c])
+	{
+		if (str[c++] != '1')
+			return (quit(fd, str));
+	}
+	size = ft_strlen(str);
+	if (size > 100)
+		return (quit(fd, str));
+	if (main_loop2(fd, size, str) == false)
+		return (false);
 	return (true);
 }
 

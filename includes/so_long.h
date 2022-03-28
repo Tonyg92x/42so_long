@@ -31,6 +31,7 @@ typedef struct	s_map {
 	int		exit_x;
 	int		exit_y;
 	int		nb_collectible;
+	int		nb_movement;
 	char	pos[100][100];
 }				t_map;
 
@@ -65,18 +66,22 @@ typedef struct	s_data {
 }				t_data;
 
 bool	validate_map(char	*file);
-void    initialise_keysum(t_vars *vars);
-t_map   *initialise_map(char *file);
-void  	put_wall(t_vars vars, int pos_x, int pos_y);
-void    put_collectible(t_vars vars, int pos_x, int pos_y);
-void    put_char(t_vars vars, int pos_x, int pos_y);
-void    put_exit_open(t_vars vars, int pos_x, int pos_y);
-void    put_exit_close(t_vars vars, int pos_x, int pos_y);
-void 	put_background(t_vars vars, int pos_x, int pos_y);
-void    render_map(t_vars vars, t_map *map);
-void    move_a(t_vars *vars);
-void    move_s(t_vars *vars);
-void    move_d(t_vars *vars);
-void    move_w(t_vars *vars);
+void	initialise_keysum(t_vars *vars);
+t_map	*initialise_map(char *file);
+void	put_wall(t_vars vars, int pos_x, int pos_y);
+void	put_collectible(t_vars vars, int pos_x, int pos_y);
+void	put_char(t_vars vars, int pos_x, int pos_y);
+void	put_exit_open(t_vars vars, int pos_x, int pos_y);
+void	put_exit_close(t_vars vars, int pos_x, int pos_y);
+void	put_background(t_vars vars, int pos_x, int pos_y);
+void	render_map(t_vars vars, t_map *map);
+void	move_a(t_vars *vars);
+void	move_s(t_vars *vars);
+void	move_d(t_vars *vars);
+void	move_w(t_vars *vars);
+void	mov_0(t_vars *vars, char move);
+void	won_event(t_vars *vars);
+char	*next_str(char	*str, int fd);
+bool	quit(int fd, char *str);
 
 #endif

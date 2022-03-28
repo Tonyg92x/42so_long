@@ -13,15 +13,16 @@
 #include "libft.h"
 #include "so_long.h"
 
-static void	quit(int fd, char *str)
+bool	quit(int fd, char *str)
 {
 	if (fd != 0)
 		close(fd);
 	if (str != NULL)
 		free(str);
+	return (false);
 }
 
-static char	*next_str(char	*str, int fd)
+char	*next_str(char	*str, int fd)
 {
 	char	*temp;
 
@@ -35,20 +36,20 @@ static char	*next_str(char	*str, int fd)
 
 static t_map *init_map(int fd, t_map *map)
 {
-    int		x;
-    int     y;
+	int		x;
+	int		y;
 	char	*str;
 
-    map = malloc(sizeof(t_map));
+	map = malloc(sizeof(t_map));
 	str = next_str(NULL, fd);
 	map->width = ft_strlen(str);
-    y = 0;
+	y = 0;
 	map->nb_collectible = 0;
 	while (str != NULL)
 	{
 		x = 0;
 		while (x < map->width)
-        {
+		{
 			if (str[x] == 'P')
 			{
 				map->char_x = x;
@@ -61,42 +62,43 @@ static t_map *init_map(int fd, t_map *map)
 			}
 			if (str[x] == 'C')
 				map->nb_collectible++;
-            map->pos[y][x] = str[x];
-            x++;
-        }
+			map->pos[y][x] = str[x];
+			x++;
+		}
 		str = next_str(str, fd);
-        y++;
-        if (y > 100)
-        {
-            free(map);
-            return (NULL);
-        }
-        if (str == NULL)
-            break;
+		y++;
+		if (y > 100)
+		{
+			free(map);
+			return (NULL);
+		}
+		if (str == NULL)
+			break;
 	}
-    map->height = y;
+	map->height = y;
 	if (str != NULL)
 		free(str);
 	close(fd);
-    return (map);
+	return (map);
 }
 
-t_map   *initialise_map(char *file)
+t_map	*initialise_map(char *file)
 {
-    t_map   *map;  
-    int		fd;
+	t_map	*map;
+	int		fd;
 	char	*file_trim;
 
 	fd = 0;
 	file_trim = ft_strtrim(file, " ");
-    fd = open(file_trim, O_RDONLY);
+	fd = open(file_trim, O_RDONLY);
 	if (fd == -1)
 	{
 		quit(fd, file_trim);
-        ft_putstr_fd("Error : Can't open the file.", 2);
-        return (NULL);
+		ft_putstr_fd("Error : Can't open the file.", 2);
+		return (NULL);
 	}
-    map = init_map(fd, map);
-    quit(fd, file_trim);
-    return (map);
+	map = init_map(fd, map);
+	map->nb_movement = 0;
+	quit(fd, file_trim);
+	return (map);
 }
