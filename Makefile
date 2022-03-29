@@ -6,7 +6,7 @@
 #    By: aguay <aguay@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/31 08:51:26 by mmondell          #+#    #+#              #
-#    Updated: 2022/03/23 13:54:22 by aguay            ###   ########.fr        #
+#    Updated: 2022/03/29 09:22:28 by aguay            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ NAME 			= so_long
 
 ## ----- CHOOSE COMPILER AND FLAGS ----- ##
 CC				= gcc
-CFLAGS			= -Wall -Wextra -Werror -g
+CFLAGS			= -Wall -Wextra -Werror
 
 ## ----- PATH TO FOLDERS ----- ##
 SRCS_DIR		= srcs/
@@ -94,13 +94,7 @@ LIBFT			= make -C $(LIBFT_DIR)
 
 ## ----- ALL ACTION DEPENDENCIES AND RECIPE FOR MAIN PROGRAM ----- ##
 
-ifeq ($(shell uname), Darwin)
 all: obj $(NAME)
-endif
-
-ifeq ($(shell uname), Linux)
-all: obj $(NAME)
-endif
 
 $(OBJ_DIR)%.o:%.c
 	$(CC) $(CFLAGS) -I $(LIBFT_OBJ) -I $(INCLUDE_DIR) -I $(LIBFT_INC) -I/usr/include -Imlx_linux -O3 -c -o $@ -c $<

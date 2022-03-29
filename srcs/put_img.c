@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:26 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/28 15:40:06 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/29 07:56:53 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ void	put_exit_open(t_vars vars, int pos_x, int pos_y)
 	if (exit != NULL)
 	{
 		mlx_put_image_to_window(vars.mlx, vars.win, exit, pos_x, pos_y);
-		mlx_destroy_image(vars.map, exit);
+		mlx_destroy_image(vars.mlx, exit);
 	}
-		
 }

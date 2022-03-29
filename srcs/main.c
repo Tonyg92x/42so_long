@@ -6,7 +6,7 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:35:51 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/28 15:17:38 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/29 09:27:54 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,23 @@
 
 int	ft_keypress(int keycode, t_vars *vars)
 {
+	t_map	*map;
+	int		*char_x;
+	int		*char_y;
+
+	map = vars->map;
+	char_x = &vars->map->char_x;
+	char_y = &vars->map->char_y;
 	if (keycode == vars->escape)
 		exit(0);
 	else if (keycode == vars->a)
-		move_a(vars);
+		move_a(vars, char_x, char_y, map);
 	else if (keycode == vars->s)
-		move_s(vars);
+		move_s(vars, char_x, char_y, map);
 	else if (keycode == vars->d)
-		move_d(vars);
+		move_d(vars, char_x, char_y, map);
 	else if (keycode == vars->w)
-		move_w(vars);
+		move_w(vars, char_x, char_y, map);
 	return (0);
 }
 
@@ -32,6 +39,16 @@ int	ft_exit(void)
 {
 	exit(0);
 	return (0);
+}
+
+static void	main2xd(t_vars vars, t_data background, t_map map)
+{
+	mlx_put_image_to_window(vars.mlx, vars.win, background.img, 0, 0);
+	render_map(vars, &map);
+	vars.map->pos[map.char_y][map.char_x] = '0';
+	mlx_hook(vars.win, ON_KEYDOWN, 1L << 0, ft_keypress, &vars);
+	mlx_hook(vars.win, ON_DESTROY, 1L << 0, ft_exit, &vars);
+	mlx_loop(vars.mlx);
 }
 
 int	main(int argc, char **argv)
@@ -57,10 +74,5 @@ int	main(int argc, char **argv)
 	background.addr = mlx_get_data_addr(background.img,
 			&background.bits_per_pixel, &background.line_length,
 			&background.endian);
-	mlx_put_image_to_window(vars.mlx, vars.win, background.img, 0, 0);
-	render_map(vars, &map);
-	map.pos[map.char_y][map.char_x] = '0';
-	mlx_hook(vars.win, ON_KEYDOWN, 1L << 0, ft_keypress, &vars);
-	mlx_hook(vars.win, ON_DESTROY, 1L << 0, ft_exit, &vars);
-	mlx_loop(vars.mlx);
+	main2xd(vars, background, map);
 }

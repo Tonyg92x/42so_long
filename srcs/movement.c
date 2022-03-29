@@ -6,122 +6,113 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:26 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/28 13:37:58 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/29 09:29:27 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "so_long.h"
 
-void	move_a(t_vars *vars)
+void	move_a(t_vars *vars, int *char_x, int *char_y, t_map *map)
 {
-	if (vars->map->char_x >= 2)
+	if ((*char_x) >= 2)
 	{
-		if (vars->map->pos[vars->map->char_y][vars->map->char_x - 1] != '1')
+		if (map->pos[(*char_y)][(*char_x) - 1] != '1')
 		{
-			if (vars->map->pos[vars->map->char_y][vars->map->char_x - 1] == '0')
+			if (map->pos[(*char_y)][(*char_x) - 1] == '0')
 				mov_0(vars, 'a');
-			else if (vars->map->pos[vars->map->char_y][vars->map->char_x - 1] == 'C')
+			else if (map->pos[(*char_y)][(*char_x) - 1] == 'C')
 			{
-				put_char((*vars), (vars->map->char_x - 1) * 24, vars->map->char_y * 24);
-				vars->map->pos[vars->map->char_y][vars->map->char_x - 1] = '0';
-				put_background((*vars), (vars->map->char_x) * 24, vars->map->char_y * 24);
-				vars->map->char_x--;
+				put_char((*vars), ((*char_x) - 1) * 24, (*char_y) * 24);
+				map->pos[(*char_y)][(*char_x) - 1] = '0';
+				put_background((*vars), (*char_x) * 24, (*char_y) * 24);
+				(*char_x)--;
 				vars->map->nb_collectible--;
 				if (vars->map->nb_collectible == 0)
-					put_exit_open((*vars), vars->map->exit_x * 24, vars->map->exit_y * 24);
+					put_exit_open((*vars), map->exit_x * 24, map->exit_y * 24);
+				ft_printf("Nombre de mouvements = %d\n",
+					++vars->map->nb_movement);
 			}
-			else if (vars->map->pos[vars->map->char_y][vars->map->char_x - 1] == 'E')
+			else if (map->pos[(*char_y)][(*char_x) - 1] == 'E')
 				won_event(vars);
 		}
-		ft_printf("Nombre de mouvement = %d\n", ++vars->map->nb_movement);
 	}
 }
 
-
-void	move_s(t_vars *vars)
+void	move_s(t_vars *vars, int *char_x, int *char_y, t_map *map)
 {
-	if (vars->map->char_y < vars->map->height)
+	if ((*char_y) < vars->map->height)
 	{
-		if (vars->map->pos[vars->map->char_y + 1][vars->map->char_x] != '1')
+		if (map->pos[(*char_y) + 1][(*char_x)] != '1')
 		{
-			if (vars->map->pos[vars->map->char_y + 1][vars->map->char_x] == '0')
+			if (map->pos[(*char_y) + 1][(*char_x)] == '0')
+				mov_0(vars, 's');
+			else if (map->pos[(*char_y) + 1][(*char_x)] == 'C')
 			{
-				put_char((*vars), vars->map->char_x * 24, (vars->map->char_y + 1) * 24);
-				put_background((*vars), vars->map->char_x * 24, vars->map->char_y * 24);
-				vars->map->char_y++;
-			}
-			else if (vars->map->pos[vars->map->char_y + 1][vars->map->char_x] == 'C')
-			{
-				put_char((*vars), vars->map->char_x * 24, (vars->map->char_y + 1) * 24);
-				put_background((*vars), vars->map->char_x * 24, vars->map->char_y * 24);
-				vars->map->pos[vars->map->char_x][vars->map->char_y + 1] = '0';
-				vars->map->char_y++;
+				put_char((*vars), (*char_x) * 24, ((*char_y) + 1) * 24);
+				put_background((*vars), (*char_x) * 24, (*char_y) * 24);
+				map->pos[(*char_x)][(*char_y) + 1] = '0';
+				(*char_y)++;
 				vars->map->nb_collectible--;
 				if (vars->map->nb_collectible == 0)
-					put_exit_open((*vars), vars->map->exit_x * 24, vars->map->exit_y * 24);
+					put_exit_open((*vars), map->exit_x * 24, map->exit_y * 24);
+				ft_printf("Nombre de mouvements = %d\n",
+					++vars->map->nb_movement);
 			}
-			else if (vars->map->pos[vars->map->char_y + 1][vars->map->char_x] == 'E')
+			else if (map->pos[(*char_y) + 1][(*char_x)] == 'E')
 				won_event(vars);
 		}
-		ft_printf("Nombre de mouvement = %d\n", ++vars->map->nb_movement);
 	}
 }
 
-void	move_d(t_vars *vars)
+void	move_d(t_vars *vars, int *char_x, int *char_y, t_map *map)
 {
-	if (vars->map->char_x < vars->map->width)
+	if ((*char_x) < vars->map->width)
 	{
-		if (vars->map->pos[vars->map->char_y][vars->map->char_x + 1] != '1')
+		if (map->pos[(*char_y)][(*char_x) + 1] != '1')
 		{
-			if (vars->map->pos[vars->map->char_y][vars->map->char_x + 1] == '0')
+			if (map->pos[(*char_y)][(*char_x) + 1] == '0')
+				mov_0(vars, 'd');
+			else if (map->pos[(*char_y)][(*char_x) + 1] == 'C')
 			{
-				put_char((*vars), (vars->map->char_x + 1) * 24, vars->map->char_y * 24);
-				put_background((*vars), vars->map->char_x * 24, vars->map->char_y * 24);
-				vars->map->char_x++;
-			}
-			else if (vars->map->pos[vars->map->char_y][vars->map->char_x + 1] == 'C')
-			{
-				vars->map->pos[vars->map->char_y][vars->map->char_x + 1] = '0';
-				put_char((*vars), (vars->map->char_x + 1) * 24, vars->map->char_y * 24);
-				put_background((*vars), vars->map->char_x * 24, vars->map->char_y * 24);
-				vars->map->char_x++;;
+				map->pos[(*char_y)][(*char_x) + 1] = '0';
+				put_char((*vars), ((*char_x) + 1) * 24, (*char_y) * 24);
+				put_background((*vars), (*char_x) * 24, (*char_y) * 24);
+				(*char_x)++;
 				vars->map->nb_collectible--;
 				if (vars->map->nb_collectible == 0)
-					put_exit_open((*vars), vars->map->exit_x * 24, vars->map->exit_y * 24);
+					put_exit_open((*vars), map->exit_x * 24, map->exit_y * 24);
+				ft_printf("Nombre de mouvements = %d\n",
+					++vars->map->nb_movement);
 			}
-			else if (vars->map->pos[vars->map->char_y][vars->map->char_x + 1] == 'E')
+			else if (map->pos[(*char_y)][(*char_x) + 1] == 'E')
 				won_event(vars);
 		}
-		ft_printf("Nombre de mouvement = %d\n", ++vars->map->nb_movement);
 	}
 }
 
-void	move_w(t_vars *vars)
+void	move_w(t_vars *vars, int *char_x, int *char_y, t_map *map)
 {
-	if (vars->map->char_y >= 2)
+	if ((*char_y) >= 2)
 	{
-		if (vars->map->pos[vars->map->char_y - 1][vars->map->char_x] != '1')
+		if (map->pos[(*char_y) - 1][(*char_x)] != '1')
 		{
-			if (vars->map->pos[vars->map->char_y - 1][vars->map->char_x] == '0')
+			if (map->pos[(*char_y) - 1][(*char_x)] == '0')
+				mov_0(vars, 'w');
+			else if (map->pos[(*char_y) - 1][(*char_x)] == 'C')
 			{
-				put_char((*vars), vars->map->char_x * 24, (vars->map->char_y - 1) * 24);
-				put_background((*vars), vars->map->char_x * 24, vars->map->char_y * 24);
-				vars->map->char_y--;
-			}
-			else if (vars->map->pos[vars->map->char_y - 1][vars->map->char_x] == 'C')
-			{
-				vars->map->pos[vars->map->char_y - 1][vars->map->char_x] = '0';
-				put_char((*vars), vars->map->char_x * 24, (vars->map->char_y - 1) * 24);
-				put_background((*vars), vars->map->char_x * 24, vars->map->char_y * 24);
-				vars->map->char_y--;
+				map->pos[(*char_y) - 1][(*char_x)] = '0';
+				put_char((*vars), (*char_x) * 24, ((*char_y) - 1) * 24);
+				put_background((*vars), (*char_x) * 24, (*char_y) * 24);
+				(*char_y)--;
 				vars->map->nb_collectible--;
 				if (vars->map->nb_collectible == 0)
-					put_exit_open((*vars), vars->map->exit_x * 24, vars->map->exit_y * 24);
+					put_exit_open((*vars), map->exit_x * 24, map->exit_y * 24);
+				ft_printf("Nombre de mouvements = %d\n",
+					++vars->map->nb_movement);
 			}
-			else if (vars->map->pos[vars->map->char_y - 1][vars->map->char_x] == 'E')
+			else if (map->pos[(*char_y) - 1][(*char_x)] == 'E')
 				won_event(vars);
 		}
-		ft_printf("Nombre de mouvement = %d\n", ++vars->map->nb_movement);
 	}
 }

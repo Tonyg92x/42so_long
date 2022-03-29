@@ -6,14 +6,14 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/15 11:38:26 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/28 13:37:14 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/29 09:01:46 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-#include <mlx.h>
+# include <mlx.h>
 # define RED 0xa80303
 # define BLUE 0x0512a1
 # define GREEN 0x12c912
@@ -23,7 +23,8 @@
 # define BLACK	0x000000
 # define BACKGROUD 0xE2F3FF
 
-typedef struct	s_map {
+typedef struct s_map
+{
 	int		width;
 	int		height;
 	int		char_x;
@@ -35,7 +36,7 @@ typedef struct	s_map {
 	char	pos[100][100];
 }				t_map;
 
-typedef struct	s_vars 
+typedef struct s_vars
 {
 	t_map	*map;
 	void	*mlx;
@@ -57,7 +58,8 @@ enum {
 	ON_DESTROY = 17
 };
 
-typedef struct	s_data {
+typedef struct s_data
+{
 	void	*img;
 	char	*addr;
 	int		bits_per_pixel;
@@ -75,10 +77,10 @@ void	put_exit_open(t_vars vars, int pos_x, int pos_y);
 void	put_exit_close(t_vars vars, int pos_x, int pos_y);
 void	put_background(t_vars vars, int pos_x, int pos_y);
 void	render_map(t_vars vars, t_map *map);
-void	move_a(t_vars *vars);
-void	move_s(t_vars *vars);
-void	move_d(t_vars *vars);
-void	move_w(t_vars *vars);
+void	move_a(t_vars *vars, int *pos_x, int *pos_y, t_map *map);
+void	move_s(t_vars *vars, int *pos_x, int *pos_y, t_map *map);
+void	move_d(t_vars *vars, int *pos_x, int *pos_y, t_map *map);
+void	move_w(t_vars *vars, int *pos_x, int *pos_y, t_map *map);
 void	mov_0(t_vars *vars, char move);
 void	won_event(t_vars *vars);
 char	*next_str(char	*str, int fd);
