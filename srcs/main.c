@@ -6,12 +6,14 @@
 /*   By: aguay <aguay@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/21 11:35:51 by aguay             #+#    #+#             */
-/*   Updated: 2022/03/29 09:27:54 by aguay            ###   ########.fr       */
+/*   Updated: 2022/03/30 07:57:23 by aguay            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "so_long.h"
+
+bool	g_on;
 
 int	ft_keypress(int keycode, t_vars *vars)
 {
@@ -22,16 +24,21 @@ int	ft_keypress(int keycode, t_vars *vars)
 	map = vars->map;
 	char_x = &vars->map->char_x;
 	char_y = &vars->map->char_y;
-	if (keycode == vars->escape)
-		exit(0);
-	else if (keycode == vars->a)
-		move_a(vars, char_x, char_y, map);
-	else if (keycode == vars->s)
-		move_s(vars, char_x, char_y, map);
-	else if (keycode == vars->d)
-		move_d(vars, char_x, char_y, map);
-	else if (keycode == vars->w)
-		move_w(vars, char_x, char_y, map);
+	if (g_on == false)
+	{
+		g_on = true;
+		if (keycode == vars->escape)
+			exit(0);
+		else if (keycode == vars->a)
+			move_a(vars, char_x, char_y, map);
+		else if (keycode == vars->s)
+			move_s(vars, char_x, char_y, map);
+		else if (keycode == vars->d)
+			move_d(vars, char_x, char_y, map);
+		else if (keycode == vars->w)
+			move_w(vars, char_x, char_y, map);
+		g_on = false;
+	}
 	return (0);
 }
 
@@ -64,6 +71,7 @@ int	main(int argc, char **argv)
 		ft_putstr_fd("Error : map invalid\n", 2);
 		return (1);
 	}
+	g_on = false;
 	initialise_map(argv[1], &map);
 	vars.map = &map;
 	vars.mlx = mlx_init();
