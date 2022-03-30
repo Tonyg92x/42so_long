@@ -9,7 +9,7 @@
     <img src="images/42_Logo.svg.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Pipex</h3>
+<h3 align="center">so_long</h3>
 
   <p align="center">
     42 Project of 42 cursus
@@ -36,16 +36,15 @@
 ## About The Project
 
 <p align="left">
-  Program that need to do the equivalent of "< file1 cmd1 | cmd2 > file2" on taking arguments like that : ./pipex file1 cmd1 cmd2 file2. Basically, you take what is in file1, and use it as an entry for the command 1. Then the output of command 1 fo as the entry of cmd2, until there is no command left then send the output of it into the file at the end. If the file1 dosen't exist, don't run the program. If the last file dosen't exist, create it. If it does exist, replace its content with the output.
-  
+  This project use mlx (minilibx) of 42. The minilibx use OpenGL. It's a small graphical project (a game). The program take a map file as argument. The file is a .ber that take multiple character wich represent the map. Character '1' is a wall, '0' is an empty case, 'E' is an exit and 'C' is a collectible. The map has to be a rectangle. Then, you want to render the map with sprite's of your choice. The character has to be abble to move with wasd key. Escape make the program exit. To win the game, you hve to collect every collectible and leave with the exit with the minimum number of move possible.
 
   <!-- INSTALLATION -->
 ## Installation
 Use this command to clone the repository :
 ```markdown
-git clone git@github.com:Tonyg92x/42Pipex.git
+git clone git@github.com:Tonyg92x/42so_long.git
 ```
-Then you can go in the folder and write the command "make" to compile the library and everything needed for the program. The executable is named pipex. You can test the program using "./pipex x cmd cmd cmd y" where x is the file that is taken as first entry and y the file that the will contain the output. cmd are any command that you can use in your unix environnement.
+Then you can go in the folder and write the command "make" to compile the library and everything needed for the program. If you are on linux, you have to go in mlx_linux foler then run configure before runing the makefile. It compile on mac and linux (debian tested).
  
 <!-- Authors -->
 ## Authors
